@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+ 
+    <!-- La etiqueta table se usa para crear tablas en HTML -->
+    <table>
+        <!-- El elemento tr describe una fila de la tabla -->
+        <tr>
+            <!-- Cada elemento td corresponde a una celda dentro de la fila -->
+            <td>Numero de Tarjeta</td>
+            <td>
+{{ tarjeta.numero_tarjeta }}
+            </td>
+        </tr>
+        <tr>
+            <td>Cédula</td>
+            <td>
+{{tarjeta.cedula}}
+            </td>
+        </tr>
+        <tr>
+            <td>Franquicia</td>
+            <td>
+{{tarjeta.franquicia}}
+            </td>
+        </tr>
+        <tr>
+            <td>Fecha de Vencimiento</td>
+            <td>
+{{tarjeta.fecha_vencimiento}}
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
