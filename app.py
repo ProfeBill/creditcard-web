@@ -45,8 +45,11 @@ def crear_tablas():
 
 @app.route("/buscar_tarjeta")
 def buscar_tarjeta():
-    tarjeta_encontrada = TarjetasController.buscar_tarjeta( request.args["tarjeta_buscada"] )
-    return render_template("tarjeta_buscada.html", tarjeta=tarjeta_encontrada)
+    try:
+        tarjeta_encontrada = TarjetasController.buscar_tarjeta( request.args["tarjeta_buscada"] )
+        return render_template("tarjeta_buscada.html", tarjeta=tarjeta_encontrada)
+    except Exception as error:
+        return f"No es posible buscar la tarjeta: { error }"
 
 
 # Esta linea permite que nuestra aplicación se ejecute individualmente

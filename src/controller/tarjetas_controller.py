@@ -9,6 +9,9 @@ import datetime
 from model.tarjeta import Tarjeta
 import secret_config
 
+class TarjetaNoEncontrada( Exception ):
+    """ Se genera cuando el metodo buscar no encuentra una tarjeta """
+
 class TarjetasController:
 
     def crear_tabla():
@@ -49,6 +52,9 @@ class TarjetasController:
 
         cursor.execute(consulta )
         fila = cursor.fetchone()
+        if fila is None :
+            raise TarjetaNoEncontrada(f"La tarjeta {numero_tarjeta} no existe en la base de datos")
+        
         resultado = Tarjeta( numero_tarjeta=fila[0], cedula=fila[1], franquicia=fila[2], codigo_banco=fila[3], fecha_vencimiento=fila[4], cupo=fila[5], tasa_interes=fila[6], cuota_manejo=fila[7]  )
         return resultado
 
