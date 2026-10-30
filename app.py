@@ -52,6 +52,26 @@ def buscar_tarjeta():
         return f"No es posible buscar la tarjeta: { error }"
 
 
+@app.route('/compra')
+def compra():
+    return render_template('compra.html'  )
+
+@app.route('/guardar_compra')
+def guardar():
+        
+    # Armar una instancia de la clase compra
+    compra = Compra( id_compra= str(uuid.uuid4() ) , 
+                    numero_tarjeta= request.args["numero_tarjeta"] ,         
+                    fecha=datetime.date.today(),   
+                    valor_compra= float( request.args["compra"] ),        
+                    tasa_interes= float(request.args["tasa"]),        
+                    cuotas= int( request.args["cuotas"] ),  cuota_mensual=0  )
+    compra.cuota_mensual = logica_tarjeta.calcular_cuota( compra=compra.valor_compra, tasa=compra.tasa_interes/100, plazo=compra.cuotas )
+    # Guardarla en la BD
+    ComprasController.insertar( compra )    
+
+    return render_template("mostrar_compra.html", compra=compra)
+
 # Esta linea permite que nuestra aplicación se ejecute individualmente
 if __name__=='__main__':
    app.run( debug=True)
